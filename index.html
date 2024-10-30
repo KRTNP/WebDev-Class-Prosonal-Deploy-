@@ -1,11 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-  </body>
+    <title>Nattaphon Honghin - Portfolio</title>
+
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2 {
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+        }
+        h2 {
+            font-size: 2rem;
+            color: #555;
+        }
+        .content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #222;
+            color: white;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #1e90ff;
+        }
+
+        /* Description Section */
+        .description {
+            padding-top: 40px;
+            font-size: 1.1rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Project Section */
+        .projects {
+            margin-top: 40px;
+        }
+        .project-card {
+            background-color: white;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .project-card h3 {
+            margin-bottom: 10px;
+            color: #1e90ff;
+        }
+        .project-card p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Form Styles */
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #1e90ff;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+        }
+
+        /* Animating Heading Color */
+        @keyframes colorChange {
+            0% { color: #1e90ff; }
+            50% { color: #32cd32; }
+            100% { color: #1e90ff; }
+        }
+        #myHeading {
+            animation: colorChange 3s infinite;
+        }
+
+        /* Heart Icon Styles */
+        .heart {
+            color: gray; /* Gray color before being pressed */
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        .heart.liked {
+            color: red; /* Red color after being pressed */
+        }
+        .heart-count {
+            margin-left: 5px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+    </style>
+
+    <script>
+        function start() {
+            setInterval(function () {
+                const red = Math.floor(Math.random() * 256);
+                const green = Math.floor(Math.random() * 256);
+                const blue = Math.floor(Math.random() * 256);
+                document.getElementById("myHeading").style.color = `rgb(${red}, ${green}, ${blue})`;
+            }, 500);
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            // Simple validation
+            if (name && email && message) {
+                const contactList = document.getElementById("contact-list");
+                const newEntry = document.createElement("li");
+                newEntry.innerHTML = `
+                    <strong>${name}</strong> (${email}): ${message} 
+                    <span class="heart" onclick="toggleHeart(this)">🩶</span> 
+                    <span class="heart-count">0</span>`;
+                contactList.appendChild(newEntry);
+
+                // Clear the form
+                document.getElementById("name").value = '';
+                document.getElementById("email").value = '';
+                document.getElementById("message").value = '';
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        function toggleHeart(element) {
+            const countSpan = element.nextElementSibling; // Get the count span
+            let count = parseInt(countSpan.innerText); // Get current count
+            element.classList.toggle("liked"); // Toggle liked state
+            // If liked, increment count; if unliked, decrement count
+            countSpan.innerText = element.classList.contains("liked") ? count + 1 : count - 1;
+            element.innerText = element.classList.contains("liked") ? "❤️" : "🩶"; // Change emoji based on state
+        }
+    </script>
+</head>
+
+<body onload="start();">
+    <!-- Audio Section -->
+    <div style="display: none;">
+        <iframe 
+            id="music-iframe" 
+            width="0" 
+            height="0" 
+            src="https://www.youtube.com/embed/jhQy_d8Rkxo?autoplay=1&loop=1&playlist=jhQy_d8Rkxo" 
+            frameborder="0" 
+            allow="autoplay; encrypted-media" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <h1 id="myHeading">Nattaphon Honghin</h1>
+        <h2>Backend Developer & DevOps Engineer</h2>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#projects">Projects</a>
+        <a href="#friends">Find Friends</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="content">
+        <!-- About Section -->
+        <section id="about" class="description">
+            <p>
+                Hello! I’m Nattaphon Honghin, a full-stack developer with a focus on backend development and DevOps.
+                I specialize in building scalable, efficient systems and automating workflows to streamline operations.
+            </p>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects">
+            <h2>Projects</h2>
+
+            <div class="project-card">
+                <h3>CI/CD Pipeline Automation</h3>
+                <p>Designed and deployed a CI/CD pipeline using Jenkins, Docker, and Kubernetes for seamless deployment.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>API Gateway Service</h3>
+                <p>Developed a high-performance API gateway with authentication and rate limiting using Node.js and Express.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Server Monitoring System</h3>
+                <p>Implemented a real-time monitoring system with Prometheus and Grafana for infrastructure health checks.</p>
+            </div>
+        </section>
+
+        <!-- Find Friends Section -->
+        <section id="friends" class="description">
+            <h2>Let’s Connect!</h2>
+            <p>
+                I’m always looking to connect with new people who share my passion for technology and development. 
+                Whether you’re a developer, a DevOps enthusiast, or just someone who loves coding – let’s be friends!
+            </p>
+            <p>
+                You can also check out what I’ve been working on with the <a href="https://github.com/KRTNP" target="_blank">KRTNP GitHub</a>.
+            </p>
+
+            <!-- Form to find new friends -->
+            <div class="form-container">
+                <h3>Leave your contact info and message</h3>
+                <form onsubmit="submitForm(event)">
+                    <input type="text" id="name" placeholder="Your Name" required />
+                    <input type="email" id="email" placeholder="Your Email" required />
+                    <textarea id="message" rows="4" placeholder="Your Message" required></textarea>
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
+
+            <!-- Display the list of friends -->
+            <div class="contact-list">
+                <h3>People who have reached out:</h3>
+                <ul id="contact-list">
+                    <!-- New contacts will appear here -->
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer id="contact">
+        <p>Contact me at: <a href="mailto:nattaphon@example.com">nattaphon@example.com</a></p>
+        <p>&copy; 2024 Nattaphon Honghin. All Rights Reserved.</p>
+    </footer>
+</body>
 </html>
